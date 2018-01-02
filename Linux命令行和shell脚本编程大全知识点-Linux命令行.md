@@ -1,0 +1,187 @@
+<center><font color=#D87093>Linux命令行和shell脚本编程大全知识点</font></center>
+========================================
+<center>第一部分        Linux命令行</center>
+----------------------------------------
+
+<p align = "right" >人没有牺牲就什麽都得不到，为了得到什麽东西，就需要付出同等的代价</p>
+* Linux 文件系统
+```
+ext                     扩展文件系统，最早的Linux文件系统
+ext2                    第二扩展文件系统，在ext的基础上提供了更多的功能
+ext3                    第三扩展文件系统，支持日志功能
+ext4                    第四扩展文件系统，支持高级日志功能
+hpfs                    OS/2高性能文件系统
+jfs                     IBM日志文件系统
+iso9660                 ISO 9660文件系统（CD-ROM）
+minix                   MINIX文件系统
+msdos                   微软的FAT16          
+ncp                     Netware文件系统
+nfs                     网络文件系统
+ntfs                    支持Mircrosoft NT文件系统
+proc                    访问系统信息
+ReiserFS                高级Linux文件系统，能提供更好的性能和硬盘恢复功能
+smb                     支持网络访问的Samba SMB文件系统
+sysv                    较早期的Unix文件系统
+ufs                     BSD文件系统
+umsdos                  建立在msdos上的类Unix文件系统
+vfat                    Windows 95文件系统（FAT32）
+XFS                     高性能64位日志文件系统
+```
+
+* 常见的Linux目录名称
+```
+/                       虚拟目录的根目录。通常不会再这里存储文件
+/bin                    二进制目录，存放许多用户级的GNU工具
+/boot                   启动目录，存放启动文件
+/dev                    设备目录，Linux在这里创建设备节点
+/etc                    系统配置文件目录
+/home                   主目录，Linux在这里创建用户目录
+/lib                    库目录，存放系统和应用程序的库文件
+/media                  媒体目录，可移动媒体设备的常用挂载点
+/mnt                    挂载目录，另一个可移动媒体设备的常用挂载点
+/opt                    可选目录，常用于存放第三方软件包和数据文件
+/proc                   进程目录，存放现有硬件及当前进程的相关信息
+/root                   root用户的主目录
+/sbin                   系统二进制目录，存放许多GNU管理员级工具
+/run                    运行目录，存放系统运作时的运行时数据
+/srv                    服务目录，存放本地服务的相关文件
+/sys                    系统目录，存放系统硬件信息的相关文件
+/tmp                    临时目录，可以在该目录中创建和删除临时工作文件
+/usr                    用户二进制目录，大量用户级的GNU工具和数据文件都存储在这里
+/var                    可变目录，用以存放经常变化的文件，比如日志文件
+
+```
+
+* 基本的 bash shell命令
+<blockquote>
+      - <b>Man</b>:&emsp;&emsp;&emsp;&emsp;```用来访问存储在Linux系统上的手册页面```
+      - <b>ls</b>:<blockquote>ls -F:&emsp;&emsp;&emsp;```-F 参数在目录名后加了正斜线（/），方便用户在输出中辨认它们``` </blockquote>
+                  <blockquote>ls -R:&emsp;&emsp;&emsp;```-R 参数列出了当前目录下包含的子目录中的文件``` </blockquote>
+                  <blockquote>ls -l:&emsp;&emsp;&emsp;```-l 参数每一行都包含了关于文件（或目录）的下述信息：``` 
+                              <blockquote>```文件类型，不如目录(d)、文件（-）、字符型文件（c）或块设备（b）；``` </blockquote>
+                              <blockquote>```文件的权限；``` </blockquote>
+                              <blockquote>```文件硬连接总数；``` </blockquote>
+                              <blockquote>```文件属主的用户名；``` </blockquote>
+                              <blockquote>```文件属主的组名；``` </blockquote>
+                              <blockquote>```文件的大小（以字节为单位）；``` </blockquote>
+                              <blockquote>```文件的上次修改时间；``` </blockquote>
+                              <blockquote>```文件名或目录名；``` </blockquote>
+                        </blockquote>
+                  <blockquote>```过滤输出列表``` 
+                              <blockquote>```问号（？）代表一个字符；``` </blockquote>
+                              <blockquote>```星号（*）代表零个或多个字符。``` </blockquote>
+                              </blockquote>
+      - <b>touch</b>:&emsp;&emsp;&emsp;&emsp;```创建新文件，也可以用来改变文件的修改时间，这个操作不改变文件的内容```
+      - <b>cp</b>:&emsp;&emsp;&emsp;&emsp;
+                 <blockquote>cp -i:&emsp;&emsp;&emsp;```-i 参数强制shell询问是否需要覆盖已有文件``` </blockquote> 
+                 <font color=#D87093>cp &emsp;-i &emsp; /etc/nginx.conf &emsp; .(其中这个.表示当前目录，..表示上一级目录)</font>
+                 <p></p>
+                 <blockquote>cp -R:&emsp;&emsp;&emsp;```-R 参数递归地复制整个目录的内容``` </blockquote>   
+                 <font color=#D87093>也可以在cp命令中使用通配符</font>
+                 <p></p>
+      - <b>mv</b>:&emsp;&emsp;&emsp;&emsp;```移动文件，mv只影响文件名和位置，inode编号和时间戳保持不变，也可以使用-i，覆盖已有文件时，得到提示```
+      - <b>mkdir</b>:&emsp;&emsp;&emsp;&emsp;```-p参数可以根据需要创建缺失的父目录，父目录包含目录树中下一级目录的目录```
+      - <b>rmdir</b>:&emsp;&emsp;&emsp;&emsp;```rmdir命令只删除空目录，rm可删除非空目录```
+      - <b>file</b>:&emsp;&emsp;&emsp;&emsp;```file命令能够探测文件的内部，并决定文件是什么类型的```   
+      - <b>cat</b>:&emsp;&emsp;&emsp;&emsp;```显示文本中所有数据```
+      		<blockquote>cat -n:&emsp;&emsp;&emsp;```-n 参数会给所有的行加上行号``` </blockquote>
+      		<blockquote>tac -n:&emsp;&emsp;&emsp;```文本数据倒叙``` </blockquote>     
+      - <b>less</b>:&emsp;&emsp;&emsp;&emsp;```less比more命令高级，less可以识别上下键以及上下翻页键```
+      - <b>tail</b>:&emsp;&emsp;&emsp;&emsp;```tail和head命令中可以加入-n参数来修改所显示的行数```
+      		<p></p>
+      		<font color=#D87093>tail -f：tail命令会保持活动状态，并不断显示添加到文件中的</font> 
+      		<p></p>
+      - <b>ps</b>:&emsp;&emsp;&emsp;&emsp;```输出运行在系统上的所有程序的许多信息```
+    		<blockquote>ps -ef:&emsp;&emsp;&emsp;```-e参数指定显示所有运行在系统上的进程；-f参数则扩展了输出，扩展信息如下：``` 
+                              <blockquote>```UID：启动这些进程的用户；``` </blockquote>
+                              <blockquote>```PID：进程的进程ID；``` </blockquote>
+                              <blockquote>```PPID：父进程的进程号（如果该进程是由另一个进程启动的）；``` </blockquote>
+                              <blockquote>```C: 进程生命周期中的CPU利用率；``` </blockquote>
+                              <blockquote>```STIME：进程启动时的系统时间；``` </blockquote>
+                              <blockquote>```TTY: 进程启动时的终端设备；``` </blockquote>
+                              <blockquote>```TIME：运行进程需要的累积CPU时间；``` </blockquote>
+                              <blockquote>```CMD: 启动的程序名称；``` </blockquote>
+                        </blockquote>
+      - <b>top</b>:&emsp;&emsp;&emsp;&emsp;```实时显示系统进程信息```
+    		<blockquote>top:&emsp;&emsp;&emsp;```“q”退出查看；扩展信息如下：``` 
+                              <blockquote>```PID：进程的ID；``` </blockquote>
+                              <blockquote>```USER：进程属主的名字；``` </blockquote>
+                              <blockquote>```PR：进程的优先级；``` </blockquote>
+                              <blockquote>```NI: 进程的谦让度值；``` </blockquote>
+                              <blockquote>```VIRT：进程占用的虚拟内存总量；``` </blockquote>
+                              <blockquote>```RES: 进程占用的物理内存总量；``` </blockquote>
+                              <blockquote>```SHR：进程和其他进程共享的内存总量；``` </blockquote>
+                              <blockquote>```S: 进程的状态（D代表可中断的休眠状态，R代表在运行状态，S代表休眠状态，T代表跟踪状态或停止状态，Z代表僵化状态）；``` </blockquote>
+                              <blockquote>```%CPU：进程使用的CPU时间比例；``` </blockquote>
+                              <blockquote>```%MEM：进程使用的内存占可用内存的比例；``` </blockquote>
+                              <blockquote>```TIME+：自进程启动到目前为止的CPU时间总量；``` </blockquote>
+                              <blockquote>```COMMAND：进程所对应的命令行名称，也就是启动的程序名；``` </blockquote>
+                        </blockquote>       
+      - <b>kill</b>:&emsp;&emsp;&emsp;&emsp;```进程的属主或root用户可通过进程ID（PID）给进程发TERM信号（尽可能终止）```
+      		<blockquote>kill -s:&emsp;&emsp;&emsp;```-s 参数支持指定其他信号（HUP挂起，INT中断，QUIT结束运行，TSTP停止或暂停，但继续在后台运行）``` </blockquote>
+      		<blockquote>killall:&emsp;&emsp;&emsp;```通过进程名而不是PID来结束进程，killall也支持通配符``` </blockquote> 
+      - <b>mount</b>:&emsp;&emsp;&emsp;&emsp;```输出当前系统上的挂载列表，以下为参数：```
+            <blockquote>mount -a:&emsp;&emsp;&emsp;```-a 参数挂载/etc/fstab文件中指定的所有的文件系统``` </blockquote>
+            <blockquote>mount -f:&emsp;&emsp;&emsp;```-f 参数模拟挂载设备，但并不真正的挂载``` </blockquote> 
+      - <b>umount</b>:&emsp;&emsp;&emsp;&emsp;```通过设备文件或者是挂载点来指定要卸载的设备，如果有程序使用，则不能卸载```
+            <p></p>
+            <font color=#D87093>如果在卸载设备时，系统提示设备正忙，可用lsof命令获得使用它的进程信息，然后在应用中停止使用该设备或停止该进程，lsof命令名单：lsof&emsp;/path/to/device/node，或 lsof&emsp;/path/to/mount/point</font> 
+            <p></p> 
+      - <b>df</b>:&emsp;&emsp;&emsp;&emsp;```可以查看所有已挂载磁盘的使用情况```
+      - <b>du</b>:&emsp;&emsp;&emsp;&emsp;```显示某个特定目录的磁盘使用情况：以下为常用参数：```
+            <blockquote>du -c:&emsp;&emsp;&emsp;```-c 参数显示所有已列出文件总的大小```</blockquote>
+            <blockquote>du -h:&emsp;&emsp;&emsp;```-h 参数按用户易读的格式输出，K代替千字节，M兆字节，G吉字节```</blockquote> 
+            <blockquote>du -s:&emsp;&emsp;&emsp;```-s 参数显示每个输出参数的总计```</blockquote>   
+      - <b>sort</b>:&emsp;&emsp;&emsp;&emsp;```对数据进行排序,以下为常用参数：```
+            <blockquote>sort -n:&emsp;&emsp;&emsp;```-n sort命令把数字识别为数字而不是字符，并且按值排序```</blockquote>
+            <blockquote>sort -M:&emsp;&emsp;&emsp;```-M 参数能识别三字符的月份名，并相应的排序```</blockquote> 
+            <blockquote>sort -k:&emsp;&emsp;&emsp;```-k 参数排序从POS1位置开始，如果指定了POS2的话，到POS2的位置结束```</blockquote>
+            <blockquote>sort -t:&emsp;&emsp;&emsp;```-t 参数指定一个用来区分键位置的字符```</blockquote>
+            <blockquote>sort -r:&emsp;&emsp;&emsp;```-r 参数反序排序（升序变为降序）```</blockquote>
+            <p></p>
+            <font color=#D87093>-k和-t参数排序比较有用，对/etc/passwd根据用户ID进行数值排序，可以：sort -t ':' -k 3 -n /etc/passwd，这个命令的意思为数据已经按照第三个字段---用户ID的数值排序</font> 
+            <p></p> 
+            <font color=#D87093>du -sh * | sort -nr意思为目录下的哪些文件占用最多</font> 
+            <p></p>
+      - <b>grep</b>:&emsp;&emsp;&emsp;&emsp;```在指定的文件中查找包含匹配指定模式的字符的行，grep的输出就是包含了匹配的行，以下为常用参数：```
+            <blockquote>grep -v:&emsp;&emsp;&emsp;```-v 参数是进行反向搜索（输出不匹配该模式的行）```</blockquote>
+            <blockquote>grep -n:&emsp;&emsp;&emsp;```-n 参数显示匹配模式的行所在的行号```</blockquote> 
+            <blockquote>grep -c:&emsp;&emsp;&emsp;```-c 参数只要知道有多少行含有匹配的模式```</blockquote>
+            <blockquote>grep -e:&emsp;&emsp;&emsp;```-e 参数指定多个匹配模式，eg：grep -e t -e f file1，输出含有字符t或字符f的所有行```</blockquote>
+      - <b>压缩数据</b>:&emsp;&emsp;&emsp;&emsp;```常用压缩工具，bzip2、gzip、zip：```
+            <blockquote>gzip:&emsp;&emsp;&emsp;```用来压缩文件```</blockquote>
+            <blockquote>gzcat:&emsp;&emsp;&emsp;```用来查看压缩过的文本文件的内容```</blockquote> 
+            <blockquote>gunzip:&emsp;&emsp;&emsp;```用来解压文件```</blockquote>
+      - <b>tar</b>:&emsp;&emsp;&emsp;&emsp;
+            <blockquote>tar -c:&emsp;&emsp;&emsp;```-c 创建一个新的tar归档文件```</blockquote>
+            <blockquote>tar -r:&emsp;&emsp;&emsp;```-r 追加文件到已有tar归档文件末尾```</blockquote>
+            <blockquote>tar -t:&emsp;&emsp;&emsp;```-t 列出已有tar归档文件的内容```</blockquote>
+            <blockquote>tar -f:&emsp;&emsp;&emsp;```-f 输出结果到文件或设备```</blockquote>
+            <blockquote>tar -j:&emsp;&emsp;&emsp;```-j 将输出重定向给bzip2命令来压缩内容```</blockquote>
+            <blockquote>tar -z:&emsp;&emsp;&emsp;```-z 将输出重定向给gzip命令来压缩内容```</blockquote> 
+            <blockquote>tar -z:&emsp;&emsp;&emsp;```-v 在处理文件时显示文件```</blockquote>     
+</blockquote>
+
+    * 理解shell
+<blockquote>
+         - <b>shell的类型</b>:&emsp;&emsp;&emsp;&emsp;```系统启动什么样的shell程序取决于个人的用户ID配置```
+         - <b>shell的父子关系</b>:&emsp;&emsp;&emsp;&emsp;```父shell发出命令：bash，创建子shell，子shell发出命令：ps -ef，子shell的父进程ID和原始进程ID一致，也就是运行shell脚本也能创建出子shell```
+         - <b>进程列表</b>:&emsp;&emsp;&emsp;&emsp;```可以在一行中指定要运行的一系列命令。可以通过命令列表实现，只要在命令之间加入分号（；）即可。若要成为进程列表，则这些命令必须包含在括号里，比如（pwd；ls；cd /etc；pwd；cd；pwd；ls），其括号内的命令为子shell```
+         - <b>sleep</b>:&emsp;&emsp;&emsp;&emsp;```sleep命令接受一个参数，希望进程等待睡眠的秒数，若将命令置于后台模式，可以在命令末尾加上字符&；sleep 3000&：sleep命令会在后台睡眠3000秒；将进程列表置于后台（tar -cf Rich.tar /home/rich; tar -cf My.tar /home/christine)&```
+         - <b>外部命令</b>:&emsp;&emsp;&emsp;&emsp;```有时候也叫文件系统命令，是存在于bash shell之外的程序，外部命令程序通常位于/bin、/usr/bin、/sbin或/usr/sbin中；ps就是一个外部命令，可以使用which和type命令找到```
+         - <b>内建命令</b>:&emsp;&emsp;&emsp;&emsp;```内建命令不需要子进程来执行，它们已经和shell编译成了一体。cd和exit命令内建于bash shell.echo和pwd既有内建命令也有外部命令```
+</blockquote>
+        * 使用Linux环境变量
+      <blockquote>
+            - <b>环境变量</b>:&emsp;&emsp;&emsp;&emsp;```bash shell用环境变量的特性来存储有关shell会话和工作环境的信息，分为全局变量和局部变量```
+             <blockquote>全局环境变量&emsp;&emsp;&emsp;```可以使用echo显示变量的值，引用某个变量的值前面$，也能够让变量作为命令行参数，比如ls $HOME，全局环境变量可用于进程的所有子shell```</blockquote>
+            <p></p>
+            <font color=#D87093>系统环境变量基本上都使用全大写字母，以区别于普通用户的环境变量，要查看环境变量，可以使用env或printenv命令，要显示个别环境变量的值，可以使用printenv命令，不要用env命令，比如printenv SHELL</font> 
+            <p></p>
+            <blockquote>局部环境变量&emsp;&emsp;&emsp;```只能在定义它们的进程中可见，set命令会显示为某个特定进程设置的所有环境变量，包括全局变量、局部变量以及用户定义变量```</blockquote>
+            - <b>设置局部用户定义变量</b>:&emsp;&emsp;&emsp;&emsp;```通过等号给环境变量赋值，值可以是数值或字符串```
+            <p></p>
+            <font color=#D87093>自己创建额局部变量或者是shell脚本，使用小写字母；变量名、等号和值之间没有空格</font> 
+            <p></p>
+            <blockquote>打发&emsp;&emsp;&emsp;```只能在定义它们的进程中可见，set命令会显示为某个特定进程设置的所有环境变量，包括全局变量、局部变量以及用户定义变量```</blockquote>
+      </blockquote>
