@@ -181,7 +181,23 @@ XFS                     高性能64位日志文件系统
             <blockquote>局部环境变量&emsp;&emsp;&emsp;```只能在定义它们的进程中可见，set命令会显示为某个特定进程设置的所有环境变量，包括全局变量、局部变量以及用户定义变量```</blockquote>
             - <b>设置局部用户定义变量</b>:&emsp;&emsp;&emsp;&emsp;```通过等号给环境变量赋值，值可以是数值或字符串```
             <p></p>
-            <font color=#D87093>自己创建额局部变量或者是shell脚本，使用小写字母；变量名、等号和值之间没有空格</font> 
+            <font color=#D87093>自己创建的局部变量或者是shell脚本，使用小写字母；变量名、等号和值之间没有空格</font> 
             <p></p>
-            <blockquote>打发&emsp;&emsp;&emsp;```只能在定义它们的进程中可见，set命令会显示为某个特定进程设置的所有环境变量，包括全局变量、局部变量以及用户定义变量```</blockquote>
+            - <b>设置全局环境变量</b>:&emsp;&emsp;&emsp;&emsp;```创建方法是先创建一个局部环境变量，然后再把它导出到全局环境中；这个过程通过export命令来完成，变量名前面不需要加$```
+            <p></p>
+            <font color=#D87093>修改子shell中全局环境变量并不会影响到父shell中该变量的值，子shell甚至无法使用export命令改变父shell中全局环境变量的值</font> 
+            <p></p>
+            - <b>删除环境变量</b>:&emsp;&emsp;&emsp;&emsp;```使用unset命令完成，在unset命令中引用环境变量时，不要使用$```
+            <p></p>
+            <font color=#D87093>如果要使用变量，使用$；如果要操作变量，不使用$。这个规则例外就是使用printenv显示某个变量的值</font>
+            <p></p>
+            - <b>设置PATH环境变量</b>:&emsp;&emsp;&emsp;&emsp;```PATH环境变量定义了用于进行命令和程序查找的目录```
+            <p></p>
+            <font color=#D87093>PATH中各个目录之间使用冒号分隔的，只需引用原来的PATH值，然后再给这个字符串添加新目录就可以了，对于PATH变量的修改只能持续到退出或重启系统</font>
+            <p></p>
+            - <b>定位系统环境变量</b>:&emsp;&emsp;&emsp;&emsp;```bash检查的启动文件取决于启动bash shell的方式```
+            <blockquote>登录shell:&emsp;&emsp;&emsp;```登录shell从5个不同的启动文件里读取命令：/etc/profile、$HOME/.bash_profile、$HOME/.bashrc、$HOME/.bash_login、$HOME/.profile、```</blockquote>
+            <blockquote>交互式shell进程:&emsp;&emsp;&emsp;```如果bash是作为交互式shell启动的，它就不会访问/etc/profile文件，只会检查用户HOME目录中的.bashrc文件（一是查看/etc目录下通用的bashrc文件，二是为用户提供一个定制自己的命名别名和私有脚本函数的地方）```</blockquote>
+            <blockquote>非交互式shell:&emsp;&emsp;&emsp;```系统执行shell脚本时用的就是这种shell，不同的地方在于它没有命令提示符```</blockquote>
+             - <b>数组变量</b>:&emsp;&emsp;&emsp;&emsp;```要给某个环境变量设置多个值，可以把值放在括号里，值于值之间用空格分隔```
       </blockquote>
