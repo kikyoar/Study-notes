@@ -201,3 +201,65 @@ XFS                     高性能64位日志文件系统
             <blockquote>非交互式shell:&emsp;&emsp;&emsp;```系统执行shell脚本时用的就是这种shell，不同的地方在于它没有命令提示符```</blockquote>
              - <b>数组变量</b>:&emsp;&emsp;&emsp;&emsp;```要给某个环境变量设置多个值，可以把值放在括号里，值于值之间用空格分隔```
       </blockquote>
+               * Linux文件权限
+            <blockquote>
+                   - <b>/etc/passwd文件</b>:&emsp;&emsp;&emsp;&emsp;```/etc/passwd文件的字段包含如下信息：登录用户名、用户密码（用*表示）、用户账户的UID、用户账号的组ID、用户账户的文本描述、用户HOME目录的位置、用户的默认shell```
+                   - <b>/etc/shadow文件</b>:&emsp;&emsp;&emsp;&emsp;```/etc/shadow文件对Linux系统密码管理提供了更多的控制，只有root才能访问/etc/shadow，每条记录中都有9个字段：与/etc/passwd文件中的登录名字段对应的登录名、加密后的密码、自上次修改后的天数密码（自1970年1月1日开始计算）、多少天后才能更改密码、多少天后必须更改密码、密码过期前提前多少提醒用户更改密码、密码过期后多少天禁用用户账户、用户账户被禁用的日期（自1970年1月1日到当天的天数表示）、预留字段给将来使用``` 
+                   - <b>添加新用户</b>:&emsp;&emsp;&emsp;&emsp;```使用useradd -D显示创建用户的默认值，其中/etc/ske1目录下的内容会被复制到用户的HOME目录下，以下是命令行参数：```  
+                     <blockquote>-c:&emsp;&emsp;&emsp;```给新用户添加备注```</blockquote> 
+                     <blockquote>-d:&emsp;&emsp;&emsp;```为主目录指定一个名字（如果不想用登录名作为主目录名的话）```</blockquote>
+                     <blockquote>-e:&emsp;&emsp;&emsp;```用YYYY-MM-DD格式指定一个账户过期的日期```</blockquote>
+                     <blockquote>-f:&emsp;&emsp;&emsp;```指定这个账户密码过期后多少天被禁用，0表示已过期就禁用，-1表示禁用这个功能```</blockquote>
+                     <blockquote>-g:&emsp;&emsp;&emsp;```指定用户登录组的GID或组名```</blockquote>
+                     <blockquote>-G:&emsp;&emsp;&emsp;```指定用户除登录组外所属一个或多个附加组```</blockquote>
+                     <blockquote>-m:&emsp;&emsp;&emsp;```创建用户的HOME目录```</blockquote>
+                     <blockquote>-M:&emsp;&emsp;&emsp;```不创建用户的HOME目录```</blockquote>
+                     <blockquote>-n:&emsp;&emsp;&emsp;```创建一个与用户登录名同名的新组```</blockquote>
+                     <blockquote>-r:&emsp;&emsp;&emsp;```创建系统账户```</blockquote>
+                     <blockquote>-p:&emsp;&emsp;&emsp;```为用户账户指定默认密码```</blockquote>
+                     <blockquote>-s:&emsp;&emsp;&emsp;```指定用户使用的登录SHELL```</blockquote>
+                     <blockquote>-u:&emsp;&emsp;&emsp;```为账户指定唯一的UID```</blockquote>
+                  <p></p>
+                  <font color=#D87093>可以使用useradd更改默认值，参数为-b：更改默认的创建用户HOME目录的位置、-e：更改默认新账户的过期日期、-f：更改默认的新用户从密码过期到账户禁用的天数、-g：更改默认的组名称或GID、-s：更改默认的登录shell。用法如：useradd -D -s /bin/tsch</font> 
+                  <p></p>
+                  - <b>删除用户</b>:&emsp;&emsp;&emsp;&emsp;```使用userdel命令只会删除/etc/passwd文件中的用户信息，而不会删除系统中属于该账户的任何文件```
+                  <p></p>
+                  <font color=#D87093>如果加上-r参数，userdel会删除用户的HOME目录以及邮件目录</font> 
+                  <p></p>
+                  - <b>修改用户</b>:&emsp;&emsp;&emsp;&emsp;``` ```
+                     <blockquote>usermod:&emsp;&emsp;&emsp;```修改用户账户的字段，-c修改备注、-e修改过期日期、-g修改默认的登录组```</blockquote> 
+                     <font color=#D87093>其中-l修改用户的登录名、-L锁定账户、-p修改账户的密码、-U解除锁定</font> 
+                     <blockquote>passwd和chpasswd:&emsp;&emsp;&emsp;```passwd -e强制用户下次登录时修改密码、可以重定向命令来将含有userid:passwd对的文件重定向给chpasswd，例如chpasswd < user.txt```</blockquote>
+                     <blockquote>chsh、chfn和chage:&emsp;&emsp;&emsp;```chsh命令用来快速修改默认的用户登录shell，例如chsh -s /bin/csh test；chfn用于修改/etc/passwd文件的备注字段；chage命令用来管理用户账户的有效期```</blockquote>
+                  - <b>/etc/group文件</b>:&emsp;&emsp;&emsp;&emsp;```系统用户用的GID低于500，而用户组的GID从500开始，/etc/group文件有4个字段：组名、组密码、GID、属于改组的用户列表```
+                  <p></p>
+                  <font color=#D87093>当一个用户在/etc/passwd文件中指定某个组作为默认组时，用户账户不会作为该组成员再出现在/etc/group中</font> 
+                  <p></p>
+                  - <b>创建新组</b>:&emsp;&emsp;&emsp;&emsp;```在创建新组时，默认没有用户被分配到该组，使用（usermod -G 组  用户）这种方式添加```
+                  <p></p>
+                  <font color=#D87093>如果更改了已登录系统账户所属的用户组，需登录系统后再登录才生效。如果加了-g选项，指定的组名会替换掉该账户的默认组。-G选项则将该组添加到用户的属组的列表里，不影响默认组</font>
+                  - <b>修改组</b>:&emsp;&emsp;&emsp;&emsp;```groupmod可以修改已有组的GID（-g选项）或组名（-n选项），修改组名时，GID和组成员不会变，只有组名改变```
+                  - <b>使用文件权限符</b>:&emsp;&emsp;&emsp;&emsp;```-代表文件、d代表目录、l代表链接、c代表字符型设备、b代表块设备、n代表网格设备；rwxrwxrwx代表文件的属主、属组、其他用户权限```
+                  - <b>默认文件权限</b>:&emsp;&emsp;&emsp;&emsp;```umask命令设置所创建文件和目录的默认权限，要把umask值从对象的全权限值中减掉，对文件来说，全权限的值为666（所有用户都有读写权限）；对于目录来说，则是777（所有用户都有读、写、执行权限），减去umask022，剩下的则为文件权限默认644，目录权限默认755```
+                  - <b>改变权限</b>:&emsp;&emsp;&emsp;&emsp;```chmod命令用来改变文件和目录的安全性设置，chmod 760 newfile或者是chmod o+r newfile```
+                  <p></p>
+                  <font color=#D87093>ls命令的-F选项，能够在具有执行权限的文件名后加一个星号，chmod -R可以让权限的改变递归地作用到文件和子目录</font> 
+                  - <b>改变所属关系</b>:&emsp;&emsp;&emsp;&emsp;```chown命令用来改变文件的属主，也支持改变属主（chown dan.shared newfile），chgrp命令用来改变文件的默认属组```
+                  <p></p>
+                  <font color=#D87093>chown -R可以让权限的改变递归地作用到文件和子目录；-h可以改变文件的所有符号链接文件的所属关系</font> 
+                  <p></p>                
+            </blockquote>
+
+                  * Linux文件系统
+               <blockquote>
+                     - <b>fdisk</b>:&emsp;&emsp;&emsp;&emsp;```管理安装在系统上的任何存储设备上的分区：```
+                     <blockquote>-a:&emsp;&emsp;&emsp;```设置活动分区标志```</blockquote>
+                     <blockquote>-d:&emsp;&emsp;&emsp;```删除分区```</blockquote> 
+                     <blockquote>-l:&emsp;&emsp;&emsp;```显示可以的分区类型```</blockquote>
+                     <blockquote>-n:&emsp;&emsp;&emsp;```添加一个新分区```</blockquote> 
+                     <blockquote>-p:&emsp;&emsp;&emsp;```显示当前分区表```</blockquote>   
+                     <blockquote>-t:&emsp;&emsp;&emsp;```修改分区的系统ID```</blockquote>   
+                     <blockquote>-u:&emsp;&emsp;&emsp;```改变使用的存储单位```</blockquote> 
+                     <blockquote>-v:&emsp;&emsp;&emsp;```验证分区表```</blockquote> 
+                     <blockquote>-w:&emsp;&emsp;&emsp;```将分区表写入磁盘```</blockquote> 
+               </blockquote>
