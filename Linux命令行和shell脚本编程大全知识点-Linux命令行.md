@@ -244,6 +244,7 @@ XFS                     高性能64位日志文件系统
                   - <b>改变权限</b>:&emsp;&emsp;&emsp;&emsp;```chmod命令用来改变文件和目录的安全性设置，chmod 760 newfile或者是chmod o+r newfile```
                   <p></p>
                   <font color=#D87093>ls命令的-F选项，能够在具有执行权限的文件名后加一个星号，chmod -R可以让权限的改变递归地作用到文件和子目录</font> 
+                  <p></p>
                   - <b>改变所属关系</b>:&emsp;&emsp;&emsp;&emsp;```chown命令用来改变文件的属主，也支持改变属主（chown dan.shared newfile），chgrp命令用来改变文件的默认属组```
                   <p></p>
                   <font color=#D87093>chown -R可以让权限的改变递归地作用到文件和子目录；-h可以改变文件的所有符号链接文件的所属关系</font> 
@@ -262,4 +263,42 @@ XFS                     高性能64位日志文件系统
                      <blockquote>-u:&emsp;&emsp;&emsp;```改变使用的存储单位```</blockquote> 
                      <blockquote>-v:&emsp;&emsp;&emsp;```验证分区表```</blockquote> 
                      <blockquote>-w:&emsp;&emsp;&emsp;```将分区表写入磁盘```</blockquote> 
+                     <p></p>
+                     <font color=#D87093>有些发行版生成新分区后并不会自动提醒Linux系统，使用partprob或hdparm命令，或者重启系统，让系统读取更新过得分区表</font> 
+                     <p></p>
+                      - <b>创建文件系统</b>:&emsp;&emsp;&emsp;&emsp;```在将数据存储到分区之前，必须使用某种文件系统对其进行格式化：mkfs.ext4、mkfs.ext3、mkfs.xfs、mkfs.zfs```
+                      - <b>文件系统的检查与修复</b>:&emsp;&emsp;&emsp;&emsp;```fsck命令能够检查和修复大部分类型的Linux文件系统```
+                     <blockquote>-a:&emsp;&emsp;&emsp;```如果检测到错误，自动修复文件系统```</blockquote>
+                     <blockquote>-A:&emsp;&emsp;&emsp;```检查/etc/fstab文件中列出的所有文件系统```</blockquote> 
+                     <blockquote>-r:&emsp;&emsp;&emsp;```出现错误时提示```</blockquote>
+                     <blockquote>-V:&emsp;&emsp;&emsp;```在检查时产生详细输出```</blockquote> 
+                      <p></p>
+                      <font color=#D87093>只能在为挂载的文件系统上运行fsck命令，对大多数文件系统来说，只需卸载文件系统来进行检查，检查完后重新挂载即可。因为根文件系统含有所需核心的Linux命令和日志文件，所以无法再处于运行状态的系统上卸载它。这样的话需要Linux LiveCD，使用LiveCD启动系统，然后在根文件系统上运行fsck命令</font> 
+                      <p></p>
+                      - <b>Linux中的LVM</b>:&emsp;&emsp;&emsp;&emsp;```允许在Linux上使用简单的命令行命令来管理一个完整的逻辑卷管理环境```
+                     <blockquote>快照:&emsp;&emsp;&emsp;```创建在线逻辑卷的可读写快照，这个功能对快速故障转移或设计修改数据的程序试验（如果失败，需要恢复修改过的数据）非常有用```</blockquote>
+                     <blockquote>条带化：&emsp;&emsp;&emsp;```有助于提高硬盘的性能，因为Linux可以将一个文件的多个数据块同时写入多个硬盘，而无需等待单个硬盘移动读写磁头到多个不同位置。这个改进同样适用于读取顺序访问的文件，因为LVM可同时从多个硬盘读取数据```</blockquote>
+                      <p></p>
+                      <font color=#D87093>LVM条带化不同于RAID条带化，LVM条带化不提供用来创建容错环境的校样信息。事实上，LVM条带化会增加文件因硬盘故障而丢失的概率。单个硬盘故障可能会造成多个逻辑卷无法访问</font> 
+                      <p></p>
+                     <blockquote>镜像:&emsp;&emsp;&emsp;```镜像是一个实时更新的逻辑卷的完整副本，当你创建镜像逻辑卷时，LVM会将原始逻辑卷同步到镜像副本中。一旦原始同步完成，LVM会为文件系统的每次写操作执行两次写入------一次写入到主逻辑卷，一次写入到镜像副本```</blockquote>
+                     - <b>使用LVM</b>:&emsp;&emsp;&emsp;&emsp;``` ```
+                     <blockquote>定义物理卷:&emsp;&emsp;&emsp;```在创建了基本的Linux分区后，使用t命令改变分区类型；使用pvcreate命令创建实际的物理卷，pvdisplay显示已创建的物理卷列表```</blockquote>
+                     <blockquote>创建卷组:&emsp;&emsp;&emsp;```使用vgcreate创建卷组，使用vgdisplay命令来显示新创建的卷组的细节```</blockquote> 
+                     <blockquote>创建逻辑卷:&emsp;&emsp;&emsp;```使用lvcreate来创建逻辑卷，使用lvdisplay命令来查看创建的逻辑卷的详细情况```</blockquote>
+                     <p></p>
+                      <font color=#D87093>-c指定快照逻辑卷的单位大小、-l指定分配给新逻辑卷的逻辑区段数，或者要用的逻辑区段的百分比、-L指定分配给新逻辑卷的硬盘大小、-s创建扩招逻辑卷、-n指定新逻辑卷的名称</font> 
+                      <p></p>
+                     <blockquote>创建文件系统:&emsp;&emsp;&emsp;```使用相应的命令行程序来创建所需要的文件系统（如mkfs.ext4），然后使用mount挂载文件系统，在/etc/fstab下设置成重启生效```</blockquote>
+                     - <b>修改LVM</b>:&emsp;&emsp;&emsp;&emsp;```vgchange：激活或禁用居卷组、vgremove：删除卷组、vgextend：将物理卷加到卷组中、vgreduce：从卷组中删除物理卷、lvextend：增加逻辑卷的大小、lvreduce：减小逻辑卷的大小```
                </blockquote>
+                     * 安装软件程序
+                  <blockquote>
+                        - <b>基于Debian的系统</b>:&emsp;&emsp;&emsp;&emsp;```dpkg命令是基于Debian系PMS工具的核心```
+                           <blockquote>用aptitude管理软件包:&emsp;&emsp;&emsp;```dpkg -L package_name：所有根软件包相关的所有文件的列表、dpkg --search absolute_file_name:查找某个特定文件属于哪个软件包、aptitude search package_name：寻找软件包、aptitude install package_name：安装软件包、aptitude safe-upgrade：更新系统软件包、aptitude purge package_name：卸载软件包```</blockquote>
+                         <p></p>
+                        <font color=#D87093>aptitude仓库默认存储在文件/etc/apt/sources.list中、格式为  <font color="#90EE90">deb（deb-src） address distribution_name package_type_list</font>&emsp;&emsp;&emsp;deb或deb-src的值表明软件包的类型，deb的值说明这是一个已编译程序源、而deb-src值则说明这是一个源代码的源;distribution_name表示特定软件仓库的发行版版本的名称；package_type_list：表面仓库里面有什么类型的包</font> 
+                        <p></p> 
+                        - <b>基于Red Hat的系统</b>:&emsp;&emsp;&emsp;&emsp;```rpm命令是基于Red Hat系PMS工具的核心```
+                           <blockquote>Yum:&emsp;&emsp;&emsp;```yum list installed：列出系统上安装的包、yum provides /etc/yum.conf：查找某个特定文件属于哪个软件包、yum localinstall package_name.rpm：本地安装rpm包、yum update package_name：更新软件包、yum remove package_name：只删除软件包而保留配置文件和数据文件、yum erase package_name：删除软件和它所有的文件、yum deplist package_name：显示了所有包的库依赖关系以及什么软件可以提供这些库依赖关系、yum repolist：显示目前在哪些仓库中获取软件```</blockquote>
+                  </blockquote>
