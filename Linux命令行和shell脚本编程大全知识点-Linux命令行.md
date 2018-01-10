@@ -302,3 +302,15 @@ XFS                     高性能64位日志文件系统
                         - <b>基于Red Hat的系统</b>:&emsp;&emsp;&emsp;&emsp;```rpm命令是基于Red Hat系PMS工具的核心```
                            <blockquote>Yum:&emsp;&emsp;&emsp;```yum list installed：列出系统上安装的包、yum provides /etc/yum.conf：查找某个特定文件属于哪个软件包、yum localinstall package_name.rpm：本地安装rpm包、yum update package_name：更新软件包、yum remove package_name：只删除软件包而保留配置文件和数据文件、yum erase package_name：删除软件和它所有的文件、yum deplist package_name：显示了所有包的库依赖关系以及什么软件可以提供这些库依赖关系、yum repolist：显示目前在哪些仓库中获取软件```</blockquote>
                   </blockquote>
+                        * Vim编辑器
+                            <blockquote>
+                              - <b>vim编辑器</b>:&emsp;&emsp;&emsp;&emsp;```vim编辑器在内存缓冲区中处理数据```
+                           <blockquote>Vim基础:&emsp;&emsp;&emsp;```G:移到缓冲区的最后一行、num G：移动到缓冲区第num行、gg：移动到缓冲区第一行、w filename:将文件保存到另一个文件中```</blockquote>
+                           <blockquote>编辑数据:&emsp;&emsp;&emsp;```x:删除当前光标所在位置的字符、dd:删除当前光标所在行、dw:删除当前光标所在位置的单词、d$：删除当前光标所在位置至行尾的内容、J:删除当前光标所在行行尾的换行符(拼接行)、u:撤销前一编辑命令、a:在当前光标后追加数据、A:在当前光标所在行行尾追加数据```</blockquote>
+                           <blockquote>查找和替换:&emsp;&emsp;&emsp;```要输入一个查找字符串，就按下斜线(/) 键、替换命令允许你快速用另一个单词来替换文本中的某个单词。必须进入命令行模式才能使用 替换命令。替换命令的格式是:s/old/new/g```</blockquote>
+                            <p></p>
+                              <font color=#D87093>1、s/old/new/g:一行命令替换所有old；2、n,ms/old/new/g:替换行号n和m之间所有old；3、%s/old/new/g:替换整个文件中的所有old；4、%s/old/new/gc:替换整个文件中的所有old，但在每次出现时提示</font> 
+                           <p></p> 
+                           </blockquote>
+--------------
+<p align = "right" >人没有牺牲就什麽都得不到，为了得到什麽东西，就需要付出同等的代价</p>
