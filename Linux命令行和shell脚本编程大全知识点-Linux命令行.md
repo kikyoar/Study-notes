@@ -3,35 +3,34 @@
 <center>第一部分 Linux命令行</center>
 ----------------------------------------
 
-<p align = "right" >人没有牺牲就什麽都得不到，为了得到什麽东西，就需要付出同等的代价</p>
-# Linux 文件系统
+<p align = "right" >人没有牺牲就什麽都得不到，为了得到什麽东西，就需要付出同等的代价</p>  
 
-```
-ext                     扩展文件系统，最早的Linux文件系统
-ext2                    第二扩展文件系统，在ext的基础上提供了更多的功能
-ext3                    第三扩展文件系统，支持日志功能
-ext4                    第四扩展文件系统，支持高级日志功能
-hpfs                    OS/2高性能文件系统
-jfs                     IBM日志文件系统
-iso9660                 ISO 9660文件系统（CD-ROM）
-minix                   MINIX文件系统
-msdos                   微软的FAT16          
-ncp                     Netware文件系统
-nfs                     网络文件系统
-ntfs                    支持Mircrosoft NT文件系统
-proc                    访问系统信息
-ReiserFS                高级Linux文件系统，能提供更好的性能和硬盘恢复功能
-smb                     支持网络访问的Samba SMB文件系统
-sysv                    较早期的Unix文件系统
-ufs                     BSD文件系统
-umsdos                  建立在msdos上的类Unix文件系统
-vfat                    Windows 95文件系统（FAT32）
-XFS                     高性能64位日志文件系统
+## Linux 文件系统  
 
+文件系统	|	描述
+-------------- | ---------------
+ext            |         扩展文件系统，最早的Linux文件系统
+ext2           |         第二扩展文件系统，在ext的基础上提供了更多的功能
+ext3           |         第三扩展文件系统，支持日志功能
+ext4           |         第四扩展文件系统，支持高级日志功能
+hpfs           |         OS/2高性能文件系统
+jfs            |         IBM日志文件系统
+iso9660        |         ISO 9660文件系统（CD-ROM）
+minix          |         MINIX文件系统
+msdos          |         微软的FAT16          
+ncp            |         Netware文件系统
+nfs            |         网络文件系统
+ntfs           |         支持Mircrosoft NT文件系统
+proc           |         访问系统信息
+ReiserFS       |         高级Linux文件系统，能提供更好的性能和硬盘恢复功能
+smb            |         支持网络访问的Samba SMB文件系统
+sysv           |         较早期的Unix文件系统
+ufs            |         BSD文件系统
+umsdos         |         建立在msdos上的类Unix文件系统
+vfat           |         Windows 95文件系统（FAT32）
+XFS            |         高性能64位日志文件系统
 
-```
-
-* 常见的Linux目录名称
+##常见的Linux目录名称
 
 ```
 /                       虚拟目录的根目录。通常不会再这里存储文件
@@ -316,5 +315,5 @@ XFS                     高性能64位日志文件系统
                               <font color=#D87093>1、s/old/new/g:一行命令替换所有old；2、n,ms/old/new/g:替换行号n和m之间所有old；3、%s/old/new/g:替换整个文件中的所有old；4、%s/old/new/gc:替换整个文件中的所有old，但在每次出现时提示</font> 
                            <p></p> 
                            </blockquote>
---------------
+
 <p align = "right" >人没有牺牲就什麽都得不到，为了得到什麽东西，就需要付出同等的代价</p>
