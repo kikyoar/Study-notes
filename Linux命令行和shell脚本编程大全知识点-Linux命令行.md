@@ -1,10 +1,11 @@
 <center><font color=#D87093>Linux命令行和shell脚本编程大全知识点</font></center>
 ========================================
-<center>第一部分        Linux命令行</center>
+<center>第一部分 Linux命令行</center>
 ----------------------------------------
 
 <p align = "right" >人没有牺牲就什麽都得不到，为了得到什麽东西，就需要付出同等的代价</p>
-* Linux 文件系统
+# Linux 文件系统
+
 ```
 ext                     扩展文件系统，最早的Linux文件系统
 ext2                    第二扩展文件系统，在ext的基础上提供了更多的功能
@@ -26,9 +27,12 @@ ufs                     BSD文件系统
 umsdos                  建立在msdos上的类Unix文件系统
 vfat                    Windows 95文件系统（FAT32）
 XFS                     高性能64位日志文件系统
+
+
 ```
 
 * 常见的Linux目录名称
+
 ```
 /                       虚拟目录的根目录。通常不会再这里存储文件
 /bin                    二进制目录，存放许多用户级的GNU工具
