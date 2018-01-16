@@ -431,7 +431,7 @@
 	$ ./test18.sh
 	Sorry, you are not the owner of the /etc/passwd file 
 	$   
->> *9. 检查默认属组关系*
+>> *9. 检查默认属组关系*  
 >> <font color=#D87093>-G比较会检查文件的默认组，如果它匹配了用户的默认组，则测试成功。-G比较只会检查默认组而非用户所属的所有组</font>  
 >> *10. 检查文件日期*  
 >> <font color=#D87093>-nt比较会判定一个文件是否比另一个文件新。如果文件较新，那意味着它的文件创建日期更近。-ot比较会判定一个文件是否比另一个文件旧。如果文件较旧，意味着它的创建日期更早</font>  
@@ -473,6 +473,79 @@
 	I cannot write to the file $
 	$ touch $HOME/testing $
 	$ ./test22.sh
-	The file exists and you can write to it
+	The file exists and you can write to it  
+> **if-then的高级特性**  
+> <font color=#D87093>1.用于数学表达式的双括号</font>  
+> <font color=#D87093>2.用于高级字符串处理功能的双方括号</font>  
+>> *1.使用双括号*:&emsp;&emsp;&emsp;&emsp;双括号命令允许你在比较过程中使用高级数学表达式  
+>> 双括号命令的格式:(( expression ))  
+>> 
+							  符号   |           描述    
+			     	-------------- | ------------
+			      val++	|    后增
+			      val--		|	后减
+			      ++val 		|	先增			      
+			      --val		|	先减
+			      ! 			|	逻辑求反			      
+			      ~			| 	位求反
+			      **			|	幂运算	
+			      >>			|	右位移
+			      <<		|	左位移
+			      &		| 	位布尔和
+			      \| 		|	位布尔或  
+			      && 		|	逻辑和
+			      \|\| 		|	逻辑或  
+>> 
+	$ cat test23.sh
+	#!/bin/bash
+	# using double parenthesis #
+	val1=10
+	#
+	if (( $val1 ** 2 > 90 )) then
+	       (( val2 = $val1 ** 2 ))
+	       echo "The square of $val1 is $val2"
+	    fi
+	$
+	$ ./test23.sh
+	The square of 10 is 100  
+>> *1.使用双方括号*:&emsp;&emsp;&emsp;&emsp;双方括号命令提供了针对字符串比较的高级特性  
+>> 双方括号命令的格式: [[ expression ]]   
+>> <font color=#D87093>双方括号里的expression使用了test命令中采用的标准字符串比较。但它提供了test命令未提供的另一个特性——模式匹配(pattern matching)</font>  
+>>   
+	$ cat test24.sh
+	#!/bin/bash
+	# using pattern matching
+	if [[ $USER == r* ]]
+	then
+		echo "Hello $USER"
+	else
+	    echo "Sorry, I do not know you"
+	fi
+	$ ./test24.sh
+	Hello rich  
 
-
+> **case命令**:&emsp;&emsp;&emsp;&emsp;case命令会采用列表格式来检查单个变量的多个值      
+> <font color=#D87093>case variable in</font>  
+> <font color=#D87093>pattern1 | pattern2) commands1;;</font>  
+> <font color=#D87093>pattern3) commands2;;</font>  
+> <font color=#D87093>*) default commands;;</font>  
+> <font color=#D87093>esac</font>  
+> *case命令会将指定的变量与不同模式进行比较。如果变量和模式是匹配的，那么shell会执行为该模式指定的命令。可以通过竖线操作符在一行中分隔出多个模式模式。星号会捕获所有与已知模式不匹配的值*  
+>  
+	$ cat test26.sh #!/bin/bash
+	# using the case command #
+	case $USER in
+	rich | barbara)
+	       echo "Welcome, $USER"
+	       echo "Please enjoy your visit";;
+	    testing)
+	      echo "Special testing account";;
+	    jessica)
+	       echo "Do not forget to log off when you're done";;
+	    *)
+	       echo "Sorry, you are not allowed here";;
+	    esac
+	$
+	$ ./test26.sh
+	Welcome, rich
+	Please enjoy your visit
